@@ -27,7 +27,6 @@ const Order = require('./models/order');
 const PaymentSlip = require('./models/paymentSlip');
 
 // for safety
-const port = process.env.PORT_NUM;
 const mongoDB = process.env.MONGO_URL;
 
 // connect to mongoDB for store all of data 
@@ -168,3 +167,4 @@ app.get('/aboutus', (req,res)=> {
 app.get('/contact', (req,res)=> {
   res.render('contact', {req:req});
 })
+
