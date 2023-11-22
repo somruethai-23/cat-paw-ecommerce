@@ -112,7 +112,7 @@ router.post('/payment', isLogin, async (req, res) => {
   // + product
   router.post('/plus/:productId', async (req, res) => {
     try {
-      const productId = req.params.productId.toString();
+      const productId = req.params.productId;
   
       const product = await Product.findById(productId).lean();
   
@@ -124,7 +124,7 @@ router.post('/payment', isLogin, async (req, res) => {
       const cart = req.session.cart || [];
       
       // check if the product is already in the cart
-      const existingCartItem = cart.find(item => item.product._id.toString() === productId);
+      const existingCartItem = cart.find(item => item.product._id === productId);
       
       if(existingCartItem) {
         if (existingCartItem.buyQuantity < product.quantity ) {
@@ -146,7 +146,7 @@ router.post('/payment', isLogin, async (req, res) => {
   // - product
   router.post('/subtract/:productId', async (req, res) => {
     try {
-      const productId = req.params.productId.toString();
+      const productId = req.params.productId;
   
       const product = await Product.findById(productId).lean();
   
@@ -158,7 +158,7 @@ router.post('/payment', isLogin, async (req, res) => {
       const cart = req.session.cart || [];
       
       // check if the product is already in the cart
-      const existingCartItem = cart.find(item => item.product._id.toString() === productId);
+      const existingCartItem = cart.find(item => item.product._id === productId);
   
       if (existingCartItem) {
         // if the product is already in the cart, - the buyQuantity by 1
@@ -184,7 +184,7 @@ router.post('/payment', isLogin, async (req, res) => {
 
 router.get('/pay/:orderId', isLogin, async (req, res) => {
   try {
-    const orderId = req.params.orderId.toString();
+    const orderId = req.params.orderId;
     const order = await Order.findOne({ _id: orderId, user: req.user._id, status: 'pending' }).exec();
 
     if (!order) {
