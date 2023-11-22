@@ -9,6 +9,7 @@ const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
+const MongoStore = require('connect-mongo')(session);
 
 
 // routes
@@ -93,7 +94,8 @@ passport.deserializeUser(async (id, done) => {
 app.use(session({
     secret: process.env.SEC_KEY,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
 
 app.use(passport.initialize());

@@ -16,6 +16,7 @@
     "body-parser": "^1.20.2",
     "chart.js": "^4.4.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "country-list-js": "^3.1.7",
     "countryjs": "^1.8.0",
