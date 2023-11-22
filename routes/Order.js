@@ -112,7 +112,7 @@ router.post('/payment', isLogin, async (req, res) => {
   // + product
   router.post('/plus/:productId', async (req, res) => {
     try {
-      const productId = req.params.productId;
+      const productId = req.params.productId.toString();
   
       const product = await Product.findById(productId).lean();
   
@@ -146,7 +146,7 @@ router.post('/payment', isLogin, async (req, res) => {
   // - product
   router.post('/subtract/:productId', async (req, res) => {
     try {
-      const productId = req.params.productId;
+      const productId = req.params.productId.toString();
   
       const product = await Product.findById(productId).lean();
   
@@ -184,7 +184,7 @@ router.post('/payment', isLogin, async (req, res) => {
 
 router.get('/pay/:orderId', isLogin, async (req, res) => {
   try {
-    const orderId = req.params.orderId;
+    const orderId = req.params.orderId.toString();
     const order = await Order.findOne({ _id: orderId, user: req.user._id, status: 'pending' }).exec();
 
     if (!order) {
