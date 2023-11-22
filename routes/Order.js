@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 const { isLogin, isAdmin } = require('./function');
 const admin = require('firebase-admin');
 require('dotenv').config();
 // storage (Using firebase)
 const multer = require('multer');
-const serviceAccount = require('../pawsshop-4c3c9-firebase-adminsdk-7f3ow-906a565b74.json');
+const filePath = path.resolve(__dirname, '../pawsshop-4c3c9-firebase-adminsdk-7f3ow-906a565b74.json');
+const serviceAccount = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
 // Firebase Admin SDK 
 admin.initializeApp({
