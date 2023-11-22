@@ -1,0 +1,91 @@
+<div class="container mt-5">
+    <form action="/admin/editorder/<%= order._id %>" method="POST">
+        <h1 class="mb-4"><i class="fa-regular fa-pen-to-square" style="color: #000000;"></i> Order Details</h1>
+        <h6><strong>Order ID:</strong> <%= order._id %></h6>
+        <h6><strong>User ID:</strong> <%= order.user._id %></h6>
+        <p><strong>Order date:</strong> <%= order.createdAt.toLocaleString() %></p>
+
+        <h2 class="mt-4"><i class="fa-regular fa-pen-to-square" style="color: #000000;"></i> Edit Shipping Information</h2>
+        <div class="mb-3">
+            <label for="shipping" class="form-label">Shipping:</label>
+            <select class="form-select" name="shipping" id="shipping">
+                <option value="Kerry" <%= order.shipping && order.shipping.brand === 'Kerry' ? 'selected' : '' %>>Kerry Express</option>
+                <option value="J&T" <%= order.shipping && order.shipping.brand === 'J&T' ? 'selected' : '' %>>J&T Express</option>
+                <option value="Flash" <%= order.shipping && order.shipping.brand === 'Flash' ? 'selected' : '' %>>Flash Express</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="trackingNumber" class="form-label">Tracking Number:</label>
+            <input type="text" class="form-control" name="trackingNumber" id="trackingNumber" value="<%= order.shipping && order.shipping.trackingNumber ? order.shipping.trackingNumber : '' %>" placeholder="<%= order.shipping && order.shipping.trackingNumber ? '' : 'Enter tracking number' %>" required>
+        </div>
+
+        <h2 class="mt-4"><i class="fa-regular fa-pen-to-square" style="color: #000000;"></i> Change Order Status</h2>
+        <div class="mb-3">
+            <label for="orderStatus" class="form-label">Order Status:</label>
+            <% if (order.status === 'delivered') { %>
+                <p>Delivered</p>
+            <% } else { %>
+                <select class="form-select" name="orderStatus" id="orderStatus">
+                    <% if (order.status === 'pending') { %>
+                        <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                        <option value="shipped" <%= order.status === 'shipped' ? 'selected' : '' %>>Shipped</option>
+                        <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                    <% } else if (order.status === 'shipped') { %>
+                        <option value="shipped" <%= order.status === 'shipped' ? 'selected' : '' %>>Shipped</option>
+                        <option value="delivered" <%= order.status === 'delivered' ? 'selected' : '' %>>Delivered</option>
+                        <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                    <% } else if (order.status === 'cancelled') { %>
+                        <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                    <% } %>
+                </select>
+            <% } %>
+        </div>
+        <% if (order.status === 'cancelled') { %>
+            <div class="mb-3">
+                <label for="cancellationReason" class="form-label">Cancellation Reason:</label>
+                <textarea name="cancellationReason" id="cancellationReason" rows="4" class="form-control" placeholder="Please provide a reason for cancellation" required><%= order.cancelReason %></textarea>
+            </div>
+        <% } %>
+        <hr>
+
+        <div class="container mt-4">
+            <form action="/admin/editorder/<%= order._id %>" method="POST">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2><i class="fa-solid fa-receipt" style="color: #000000;"></i> Check Payment Slips</h2>
+                        <% if (order.shippingMethod === 'standard') { %>
+                            <h4>Total Amount: ฿<%= (parseFloat(order.totalAmount) + 32).toLocaleString() %></h4>
+                        <% } else { %>
+                            <h4>Total Amount: ฿<%= (parseFloat(order.totalAmount) + 50).toLocaleString() %></h4>
+                        <% } %>
+                        <br>                        
+                        <h2><i class="fa-solid fa-boxes-packing" style="color: #000000;"></i> Ordered Products</h2>
+                        <% if (order.products && order.products.length > 0) { %>
+                            <ul>
+                                <% for (let product of order.products) { %>
+                                    <li><%= product.product.name %> <br>
+                                        <small>* Quantity: <%= product.quantity %></small></li>
+                                <% } %>
+                            </ul>
+                        <% } else { %>
+                            <p>No products ordered.</p>
+                        <% } %>
+                    </div>
+                    <div class="col-md-6">
+                        <% if (order.paymentSlips.length === 0) { %>
+                            <h1><i class="fa-solid fa-xmark" style="color: #a00d0d;"></i> The customer did not pay yet.</h1>
+                        <% } else { %>
+                            <% for (let paymentSlip of order.paymentSlips) { %>
+                                <img src="<%= paymentSlip.slipImage %>" alt="Payment Slip" width="450px" class="img-thumbnail mb-3">
+                            <% } %>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="row">
+                <button type="submit" class="btn btn-dark">Save</button>
+            </div>
+            </form>
+        </div>
+        
+    </form>
+</div>

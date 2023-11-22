@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="container mt-4">
+    <h1 class="mb-4">Manage Product</h1>
+    
+    <form action="/product/manage" method="GET">
+        <div class="row">
+            <div class="col-md-3">
+                <label for="sort" class="form-label">Sort by:</label>
+                <select name="sort" id="sort" class="form-select">
+                    <option value="createdAt-asc" <% if (sortBy === 'createdAt-asc') { %>selected<% } %>>Newest</option>
+                    <option value="createdAt-desc" <% if (sortBy === 'createdAt-desc') { %>selected<% } %>>Oldest</option>
+                    <option value="price-asc" <% if (sortBy === 'price-asc') { %>selected<% } %>>Price (Low to High)</option>
+                    <option value="price-desc" <% if (sortBy === 'price-desc') { %>selected<% } %>>Price (High to Low)</option>
+                    <option value="quantity" <% if (sortBy === 'quantity') { %>selected<% } %>>Quantity</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="categoryFilter" class="form-label">Select Category:</label>
+                <select name="categoryFilter" id="categoryFilter" class="form-select">
+                    <option value="categories" <% if (categoryFilter === 'categories') { %>selected<% } %>>Every Category</option>
+                    <option value="toys" <% if (categoryFilter === 'toys') { %>selected<% } %>>Toys</option>
+                    <option value="furniture" <% if (categoryFilter === 'furniture') { %>selected<% } %>>Furniture</option>
+                    <option value="food" <% if (categoryFilter === 'food') { %>selected<% } %>>Food & Water Bowl</option>
+                    <option value="litter" <% if (categoryFilter === 'litter') { %>selected<% } %>>Litter</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label for="searchName" class="form-label">Search by Name:</label>
+                <input type="text" name="searchName" id="searchName" value="<%= searchName %>" class="form-control" placeholder="Name">
+            </div>
+
+            <div class="col-md-2">
+                <label for="searchProductId" class="form-label">Search by Product ID:</label>
+                <input type="text" name="searchProductId" id="searchProductId" value="<%= searchProductId %>" class="form-control" placeholder="Full product ID">
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-outline-dark mt-3">Sort</button>
+            </div>
+        </div>
+    </form>
+
+    <% if (error && error.length) { %>
+      <div class="alert alert-danger">
+          <%= error[0] %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+    <% if (success && success.length) { %>
+      <div class="alert alert-success">
+          <%= success[0] %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+    <!-- if product quantity lower than 5, it will alert the admin -->
+    <% let lowQuantityMessage = ''; %>
+
+    <% products.forEach(function(item) { %>
+      <% if (item.quantity < 5) { %>
+        <% lowQuantityMessage = 'There are low stock! Please check the stock!'; %>
+      <% } %>
+    <% }) %>
+    <% if (lowQuantityMessage) { %>
+      <div class="alert alert-warning">
+        <%= lowQuantityMessage %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Product Id</th>
+          <th scope="col">Name</th>
+          <th scope="col">category</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% products.forEach(function(item) { %>
+          <tr>
+            <td><%= item._id %></td>
+            <td><%= item.name %></td>
+            <td><%= item.category %></td>
+            <td>฿<%= item.price.toLocaleString() %></td>
+            <td class="text-center"><%= item.quantity %></td>
+            <% if (item.productStatus === 'active') { %>
+              <td><span style="color: #56b661;"><%= item.productStatus %></span></td>
+            <% } else if (item.productStatus === 'onhold') { %>
+              <td><span style="color: #f7cd3e;"><%= item.productStatus %></span></td>
+            <% } else { %>
+              <td><span style="color: #ff0000;"><%= item.productStatus %></span></td>
+            <% } %>
+            <td>
+              <a class="btn btn-dark btn-sm" href="/product/edit/<%= item._id %>">Edit</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    
+  </div>
+</div>

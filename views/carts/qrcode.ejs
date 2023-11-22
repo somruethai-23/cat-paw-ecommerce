@@ -1,0 +1,35 @@
+<% if (error && error.length) { %>
+  <div class="alert alert-danger">
+      <%= error[0] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+<% if (success && success.length) { %>
+  <div class="alert alert-success">
+      <%= success[0] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<div class="container mt-5">
+  <div class="row text-center">
+    <div class="col-md-12">
+      <h1 class="mb-4"><i class="fa-brands fa-paypal" style="color: #000000;"></i> PAYMENT</h1>
+      <% if (shippingMethod === 'standard') { %>
+        <h4 class="mb-4"><strong>Total Amount:</strong> ฿ <%= (parseFloat(totalAmount) + 32).toLocaleString() %></h4>
+      <% } else { %>
+        <h4 class="mb-4"><strong>Total Amount:</strong> ฿ <%= (parseFloat(totalAmount) + 50).toLocaleString() %></h4>
+      <% } %>
+      <img src="https://storage.googleapis.com/pawsshop-4c3c9.appspot.com/399704279_910200920526231_6675429720325998942_n.jpg" class="img-fluid mb-4" style="width: auto; height: 250px;" alt="">
+      <small class="d-block mb-4">Scan here to pay, upload the slip image for evidence of payment.</small>
+
+      <form action="/order/upload?orderId=<%= order._id %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <input type="file" name="slipImage" class="form-control-file" required>
+          <button type="submit" class="btn btn-dark">Upload</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</div>

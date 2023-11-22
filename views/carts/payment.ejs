@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="text-center my-5">
+        <h1 class="display-4"><i class="fa-solid fa-cash-register" style="color: #000000;"></i> Payment</h1>
+    </div>
+    <a href="/" class="text-dark text-decoration-none"><i class="fa-solid fa-circle-chevron-left" style="color: #000000;"></i> Back to shopping</a>
+
+    <div class="row g-5">
+        <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+            <div class="p-4 border-top">
+                <div class="p-0 m-0 mt-4">
+                    <h2 class="h4"><i class="fa-solid fa-map-location-dot" style="color: #000000;"></i> Billing Address</h2>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-8 col-md-6 col-xs-12">
+                        <p class="mb-2"><strong><i class="fa-solid fa-user-pen" style="color: #000000;"></i> Fullname:</strong> <%= address.fullname %> </p>
+                        <p class="mb-2"><strong><i class="fa-solid fa-phone" style="color: #000000;"></i> Phone:</strong> <%= address.phoneNumber %> </p>
+                        <p class="mb-2"><strong><i class="fa-solid fa-house" style="color: #000000;"></i> Address:</strong> <%= address.address %>, <%= address.postalCode %>, <%= address.country %> </p>
+                        <div>
+                            <a href="/user/profile" class="btn btn-outline-dark">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <img src="https://static.vecteezy.com/system/resources/previews/020/988/892/non_2x/dog-paw-print-wave-line-cute-cat-pawprint-pet-foot-trail-black-dog-step-silhouette-simple-doodle-drawing-illustration-isolated-on-white-background-vector.jpg" alt="cat paw cute" style="max-width: 100%; max-height: 100vh;">
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+            <div class="p-4" id="rightPanel">
+                <h6 class="text-uppercase"><small>All items</small></h6>
+                <h4 class="fw-bold">Payment</h4>
+                <% cart.forEach(function(item) { %>
+                    <div class="my-4 d-flex align-items-center">
+                        <div style="flex: 1;">
+                            <i class="fa-solid fa-basket-shopping" style="color: #000000;"></i>
+                            <%= item.product.name %>
+                            <br><span class="text-secondary"><small>Quantity: <%= item.buyQuantity %></small></span>
+                        </div>
+                        <div class="mx-3 border border-dark rounded"></div>
+                        <div class="text-end">฿ <%= (item.buyQuantity * item.product.price).toLocaleString() %></div>
+                    </div>
+                <% }) %>
+
+                <div class="my-4 d-flex align-items-center">
+                    <div style="min-width: 130px">Shipping Fee<br><span class="text-secondary"><small><%= shippingMethod %>
+                        <% if (shippingMethod === 'standard') { %>
+                            <br>* Standard delivery takes 5-8 days
+                        <% } else if (shippingMethod === 'EMS') { %>
+                            <br>* EMS takes 2-4 days
+                        <% } %>
+                    </small></span></div>
+                    <div class="w-100 mx-3">
+                        <% if (shippingMethod === 'standard') { %>
+                            ฿ 32.00 <br>
+                        <% } else if (shippingMethod === 'EMS') { %>
+                            ฿ 50.00 <br>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="my-4 fs-4">
+                <div class="d-flex justify-content-between">
+                    <div class="fw-bold">Total</div>
+                    <div class="text-primary fw-bold">
+                        <% if (shippingMethod === 'standard') { %>
+                            ฿ <%= (parseFloat(totalAmount) + 32).toLocaleString() %>
+                        <% } else if (shippingMethod === 'EMS') { %>
+                            ฿ <%= (parseFloat(totalAmount) + 50).toLocaleString() %>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <form action="/order/payment" method="POST">
+                <div class="my-4">
+                    <button class="btn btn-primary text-uppercase w-100"><b>Pay</b></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/app.js"></script>

@@ -1,0 +1,77 @@
+<div class="container mt-4">
+    <h1>Manage Orders</h1>
+
+    <% if (error && error.length) { %>
+        <div class="alert alert-danger">
+            <%= error[0] %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <% if (success && success.length) { %>
+        <div class="alert alert-success">
+            <%= success[0] %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+
+    <div class="container mt-4">
+        <form action="/admin/ordermanagement" method="GET" class="d-flex">
+            <div class="col-md-2 me-2">
+                <select name="status" id="status-filter" class="form-select">
+                    <option value="all">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-outline-dark">Filter</button>
+            </div>
+            <div class="col-md-3 me-2">
+                <input type="text" name="search" class="form-control" placeholder="Search by User ID">
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-outline-dark">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User ID</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% let ordersFound = false; %>
+            <% if (users && users.length) { %>
+                <% users.forEach(function(user) { %>
+                    <% if (user.orders && user.orders.length) { %>
+                        <% user.orders.forEach(function(order) { %>
+                            <tr>
+                                <td><%= order._id %></td>
+                                <td><%= user._id %></td>
+                                <td><%= order.status %></td>
+                                <td>
+                                    <a href="/admin/editorder/<%= order._id %>" class="btn btn-dark">Manage</a>
+                                </td>
+                            </tr>
+                            <% ordersFound = true; %>
+                        <% }) %>
+                    <% }
+                }) %>
+            <% }
+
+            if (!ordersFound) { %>
+                <tr>
+                    <td colspan="4" class="text-center">No orders found.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

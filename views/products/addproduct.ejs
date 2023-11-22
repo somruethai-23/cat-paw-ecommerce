@@ -1,0 +1,52 @@
+<% if (error && error.length) { %>
+  <div class="alert alert-danger">
+      <%= error[0] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+  <% if (success && success.length) { %>
+  <div class="alert alert-success">
+      <%= success[0] %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <% } %>
+
+
+<div class="container">
+  <div class="row my-3 justify-content-center">
+    <div class="col-md-8 mb-4">
+      <form class="form-horizontal" method="POST" action="/product/insert">
+        <div class="mb-3">
+          <label for="title" class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+        </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="price" name="price" placeholder="$0.00" min="0" step="0.01" required>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <input type="text" class="form-control" id="image" name="image" placeholder="www.image.com" required>
+        </div>
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-select" id="category" name="category" required>
+              <option id="food" value="food">Food & Water Bowl</option>
+              <option id="toys" value="toys">Toys</option>
+              <option id="furniture" value="furniture">Furniture</option>
+              <option id="litter" value="litter">Litter</option>
+          </select>
+        </div>             
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="4" placeholder="Details of the product..." required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input type="number" class="form-control" id="quantity" name="quantity" placeholder="0" min="0" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

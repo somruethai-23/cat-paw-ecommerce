@@ -1,0 +1,73 @@
+<section class="py-5">
+    <div class="container">
+        <a href="/" class="text-dark text-decoration-none"><i class="fa-solid fa-circle-chevron-left" style="color: #000000;"></i> Back to shopping page</a>
+        <div class="row gx-5">
+            <aside class="col-lg-6">
+                <!-- Product Image -->
+                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="<%= product.image %>">
+                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="<%= product.image %>">
+                    </a>
+                </div>
+            </aside>
+            <main class="col-lg-6">
+                <!-- Product Details -->
+                <div class="ps-lg-3">
+                    <h4 class="title text-dark"><i class="fa-solid fa-tag" style="color: #000000;"></i> <%= product.name %></h4>
+                    <div class="d-flex flex-row my-3">
+                        <% if (product.quantity > 1) {%>
+                        <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i><%= product.quantity %> available</span>
+                        <span class="text-success ms-2">In stock</span>
+                        <% } else { %>
+                            <span class="ms-2" style="color: rgb(212, 24, 24);">out of stock</span>
+                        <% } %>
+                    </div>
+
+                    <div class="mb-3">
+                        <span class="h5">฿ <%= product.price.toLocaleString() %></span>
+                        <span class="text-muted"> /each</span>
+                    </div>
+
+                    <p>
+                        <%= product.description %>
+                    </p>
+                    
+                    <!-- Add to Cart Button -->
+                    <form method="POST" action="/product/<%= product._id %>/add-to-cart">
+                        <button type="submit" class="btn btn-dark shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </button>
+                    </form>
+                </div>
+                <img src="https://static.vecteezy.com/system/resources/previews/020/988/892/non_2x/dog-paw-print-wave-line-cute-cat-pawprint-pet-foot-trail-black-dog-step-silhouette-simple-doodle-drawing-illustration-isolated-on-white-background-vector.jpg" alt="cat paw cute" style="max-width: 100%; max-height: 100vh;">
+            </main>
+        </div>
+        <hr>
+
+        <h4 class=" mb-3">Recommended Products <i class="fa-solid fa-chevron-down" style="color: #000000;"></i></h4>
+        <div class="recommendedProduct row row-cols-1 row-cols-md-3">
+            <% recommendedProducts
+                .filter(product => product.productStatus === 'active')
+                .forEach(function(recommendedProduct) { %>
+                <div class="mb-4">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="<%= recommendedProduct.image %>" class="card-img-top" alt="<%= recommendedProduct.name %>">
+                        </div>
+                        <div class="recommendProduct card-body p-4">
+                            <div class="text-center">
+                                <h6 class="card-title"><%= recommendedProduct.name %></h6>
+                                <% if (recommendedProduct.quantity > 0) { %>
+                                    <small style="color: green;">In stock:</small><small> <%= recommendedProduct.quantity %></small><br>
+                                <% } else { %>
+                                    <small style="color: red;">Out of stock</small><br>
+                                <% } %>              
+                                <p class="card-text text-muted"><small>฿ <%= recommendedProduct.price.toLocaleString() %></small></p>
+                                <a href="/product/<%= recommendedProduct._id %>" class="btn btn-outline-dark btn-sm">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+
+    </div>
+</section>

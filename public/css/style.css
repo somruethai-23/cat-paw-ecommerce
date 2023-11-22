@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+main {
+    flex: 1;
+}
+
+section{
+    margin-bottom: 40px;
+}
+
+header.header {
+    background-image: url(https://as1.ftcdn.net/v2/jpg/03/57/00/62/1000_F_357006214_6s5VlEttLRNwaU2iJV54RxzKNXwqVXwS.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: fixed;
+}
+
+footer {
+    padding: 20px;
+}
+
+.navbar{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    padding: 20px;
+}
+
+.col-md-3.ml-auto{
+    padding: 40px;
+}
+
+.col-md-9{
+    padding: 30px;
+}
+
+.row {
+    padding: 30px;
+}
+
+.sidebar {
+    flex: 0 0 25%; 
+    padding: 10px;
+    margin-right: 10px; 
+    background-color: #f8f9fa; 
+}
+
+.dropdown-menu.left {
+    left: 0;
+}
+
+.btn-close {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    font-size: 0.875rem;
+    color: #000; /* สีของปุ่มปิด */
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.icon-profile{
+    font-size: 80px;
+}
+
+/* cart */
+@media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+}
+
+/* hide it so customer will use + - that I created only */
+.no-spinners::-webkit-inner-spin-button,
+.no-spinners::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-spinners {
+    -moz-appearance: textfield;
+}
+
+
+/* ------------------------------ INDEX PAGE -------------------------------- */
+.lead-text {
+    color:rgb(0, 0, 0);
+    text-shadow: 2px 2px 4px rgba(170, 170, 170, 0.5);
+    background-color: rgba(245, 245, 245, 0.6);
+    padding: 10px;
+    display: inline-block;
+}
+
+.shoppingpage .productname {
+    font-size: 15px
+}
+
+
+/* make it equally */
+.shoppingpage .card-img-container {
+    overflow: hidden;
+    position: relative;
+    height: 200px; 
+}
+
+
+.shoppingpage .card-img-container img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.shoppingpage .card-img-container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.shoppingpage .card-img-container:hover .overlay {
+    opacity: 1;
+}
+
+.shoppingpage .card-img-container .overlay-text {
+    color: white;
+    font-size: 20px; /* Adjust the font size as needed */
+    font-weight: bold;
+}
+
+.shoppingpage .card-img-container .overlay a {
+    text-decoration: none;
+}
+.shoppingpage .card-img-container:hover .overlay a {
+    text-decoration: none;
+}
+
+/*------------------------ Single page ------------------------------*/
+.recommendedProduct .card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.recommendedProduct .card-img-container {
+    overflow: hidden;
+    height: 200px; 
+}
+
+.recommendedProduct .card-img-container img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}

@@ -1,0 +1,110 @@
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            <% if (success && success.length) { %>
+                <div class="alert alert-success">
+                    <%= success[0] %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+            <% if (error && error.length) { %>
+                <div class="alert alert-danger">
+                    <%= error[0] %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+
+        <div class="row">
+            <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                <i class="icon-profile fa-solid fa-circle-user" style="color: #000000;"></i>
+                <h5 class="my-3">Welcome, <%= user.username %></h5>
+                </div>
+            </div>
+            <div class="card mb-4 mb-lg-0">
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush rounded-3">
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <i class="fa-solid fa-lock" style="color: #000000;"></i>
+                        <a class="mb-0 text-dark text-decoration-none" href="/user/changepassword">change password</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <i class="fa-solid fa-box-open" style="color: #000000;"></i>
+                        <a class="mb-0 text-dark text-decoration-none" href="/order/ordertrack">ํYour order</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                <form id="profileForm" action="/user/profile" method="POST">
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0"><i class="fa-solid fa-file-signature" style="color: #000000;"></i> Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="fullname" name="fullname" value="<%= (address && address.fullname) ? address.fullname : '' %>" placeholder="Enter your full name" required>
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0"><i class="fa-solid fa-phone" style="color: #000000;"></i> Phone Number</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<%= (address && address.phoneNumber) ? address.phoneNumber : '' %>" placeholder="Enter your phone number" max="20" required>
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0"><i class="fa-solid fa-location-dot" style="color: #000000;"></i> Address</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="address" name="address" rows="4" required><%= (address && address.address) ? address.address : '' %></textarea>
+                    </div>                
+                    </div>                             
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0"><i class="fa-solid fa-house" style="color: #000000;"></i> Postal code</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="postalCode" value="<%= (address && address.postalCode) ? address.postalCode : '' %>" placeholder="Enter your postal code" required>
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0"><i class="fa-solid fa-earth-americas" style="color: #000000;"></i> Country</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="country" name="country" required>
+                        <% countries.forEach(country => { %>
+                            <option value="<%= country %>">
+                            <% if (address && address.country === country) { %>
+                                selected
+                            <% } %>
+                            <%= country %>
+                            </option>
+                        <% }); %>
+                        </select>                    
+                    </div>
+                    </div>
+                    <hr>    
+                    <div class="col-sm-12">
+                        <button type="submit" class="btn btn-dark" id="saveButton">Save</button>
+                    </div>      
+                </form>
+                </div>                          
+            </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</section>

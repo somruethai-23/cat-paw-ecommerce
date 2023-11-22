@@ -1,0 +1,78 @@
+<div class="container">
+    <h1>Order Details</h1>
+    <div class="accordion" id="ordersAccordion">
+        <% if (orders.length > 0) { %>
+            <% orders.forEach(function (order, index) { %>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading<%= index %>">
+                        <button class="accordion-button<%= index === 0 ? '' : ' collapsed' %>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="<%= index === 0 ? 'true' : 'false' %>" aria-controls="collapse<%= index %>">
+                            <i class="fa-solid fa-box-open" style="color: #000000;"></i>  Order ID: <%= order._id %>
+                        </button>
+                    </h2>
+                    <div id="collapse<%= index %>" class="accordion-collapse collapse<%= index === 0 ? ' show' : '' %>" aria-labelledby="heading<%= index %>" data-bs-parent="#ordersAccordion">
+                        <div class="accordion-body">
+                            <strong><i class="fa-regular fa-calendar-days" style="color: #000000;"></i> Order At:</strong> <%= order.createdAt.toLocaleString() %><br>
+                            <% if (order.status == 'cancelled') { %>
+                                <strong>Cancelled Reason:</strong> <%= order.cancelReason %>
+                            <% } else { %>
+                            <strong> <i class="fa-solid fa-truck-fast" style="color: #000000;"></i> Estimated Delivery time:</strong>
+                            <% if (order.shippingMethod === 'standard' || order.shippingMethod === 'EMS') { %>
+                                <%= estimatedDates[index] %>
+                            <% } %>
+                            <br>
+                            <strong><i class="fa-solid fa-star" style="color: #000000;"></i> Status:</strong> <%= order.status %>
+                            <% if (order.status !== 'pending') { %>
+                                <div>
+                                    <strong>Shipping:</strong> <%= order.shipping.brand %><br>
+                                    <strong>Tracking Number:</strong> <%= order.shipping.trackingNumber %>
+                                </div>
+                            <% } %>
+                            <br>
+                            <strong><i class="fa-solid fa-money-bill-1" style="color: #000000;"></i> Payment:</strong>
+                            <% if (order.paymentSlips && order.paymentSlips.length > 0) { %>
+                            Already Paid.
+                            <% } else { %>
+                            <a href="/order/pay/<%= order._id%>"><i class="fa-solid fa-receipt" style="color: #000000;"></i> Click here to pay</a>
+                            <% } %>
+                            <% } %>
+                            
+                            <hr>
+
+                            <ul class="list-group">
+                                <% if (order.products.length > 0) { %>
+                                    <% order.products.forEach(function (product) { %>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                        <div class="col-md-3"><img src="<%= product.product.image %>" alt="" width="100px" height="100px"></div>
+                                        <div class="col-md-6"><%= product.product.name %></div>
+                                        <div class="col-md-3">Quantity: <%= product.quantity %></div>
+                                        </div>
+                                    </li>
+                                    <% }); %>
+                                <div class="row">
+                                    <div class="col-md-12 text-end"> <!-- Use text-end class to align to the right -->
+                                    <% if (order.shippingMethod === 'standard') { %>
+                                        <strong>Total Amount:</strong> ฿ <%= (parseFloat(order.totalAmount) + 32).toLocaleString() %>
+                                    <% } else { %>
+                                        <strong>Total Amount:</strong> ฿ <%= (parseFloat(order.totalAmount) + 50).toLocaleString() %>
+                                    <% } %>
+                                    </div>
+                                    </div>
+                                <% } %>
+                                </ul>
+                            <a href="/" class="btn btn-dark mt-3" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to shopping</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <hr>
+            <div class="d-flex flex-column align-items-center">
+            <h2 class="mt-4"><i class="fa-solid fa-box-open" style="color: #000000;"></i> No order yet.</h2>
+            <a href="/" class="btn btn-dark mt-3" data-abc="true"> <i class="fa fa-chevron-left"></i> Go to shopping</a>
+            <br>
+                <img src="https://www.shutterstock.com/image-photo/cute-pet-kitten-on-clean-600nw-2315794797.jpg" alt="cat paw cute" style="max-width: 100%; max-height: 100vh;">
+            </div>
+        <% } %>
+    </div>
+</div>
