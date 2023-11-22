@@ -5,7 +5,7 @@ const admin = require('firebase-admin');
 require('dotenv').config();
 // storage (Using firebase)
 const multer = require('multer');
-const serviceAccount = require(process.env.ADMIN_SDK);
+const serviceAccount = process.env.ADMIN_SDK;
 
 // Firebase Admin SDK 
 admin.initializeApp({
