@@ -7,11 +7,6 @@ require('dotenv').config();
 const multer = require('multer');
 const serviceAccount = JSON.parse(process.env.FIREBASE_ADMIN_SDK);
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  storageBucket: process.env.STORAGE_BUCKET,
-});
-
 // Firebase Admin SDK 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
