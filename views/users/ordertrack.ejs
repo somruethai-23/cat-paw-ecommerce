@@ -53,7 +53,8 @@
                                     <div class="col-md-12 text-end"> <!-- Use text-end class to align to the right -->
                                     <% if (order.shippingMethod === 'standard') { %>
                                         <strong>Total Amount:</strong> ฿ <%= (parseFloat(order.totalAmount) + 32).toLocaleString() %>
-                                    <% } else { %>
+                                    <% } %>
+                                    <% if (order.shippingMethod === 'EMS'){ %>
                                         <strong>Total Amount:</strong> ฿ <%= (parseFloat(order.totalAmount) + 50).toLocaleString() %>
                                     <% } %>
                                     </div>
