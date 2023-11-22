@@ -10,6 +10,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
 const MongoStore = require('connect-mongo');
+const punycode = require('punycode');
 
 // routes
 const productRoutes = require('./routes/Product');
@@ -167,7 +168,3 @@ app.get('/aboutus', (req,res)=> {
 app.get('/contact', (req,res)=> {
   res.render('contact', {req:req});
 })
-
-app.listen(port, () => {
-    console.log(`app listening on port ${port}`)
-});
