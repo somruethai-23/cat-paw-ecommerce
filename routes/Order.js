@@ -5,11 +5,11 @@ const admin = require('firebase-admin');
 require('dotenv').config();
 // storage (Using firebase)
 const multer = require('multer');
-const serviceAccount = require(path.join(__dirname, process.env.adminsdk);
+const serviceAccount = require('../pawsshop-4c3c9-firebase-adminsdk-7f3ow-906a565b74);
 
 // Firebase Admin SDK 
 admin.initializeApp({
-  credential: admin.credential.cert(path.join(__dirname, process.env.adminsdk),
+  credential: admin.credential.cert(serviceAccount),
   storageBucket: process.env.STORAGE_BUCKET,
 });
 
