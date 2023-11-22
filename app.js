@@ -9,8 +9,7 @@ const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
-const MongoStore = require('connect-mongo')(session);
-
+const MongoStore = require('connect-mongo');
 
 // routes
 const productRoutes = require('./routes/Product');
@@ -43,6 +42,10 @@ mongoose.connect(mongoDB, {
     console.error('Connection to MongoDB failed:', err);
 });
 
+const mongoStore = MongoStore.create({
+  mongoUrl: process.env.MONGO_URL, // Replace with your MongoDB connection string
+  ttl: 14 * 24 * 60 * 60, 
+});
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.static('public'));
@@ -95,7 +98,7 @@ app.use(session({
     secret: process.env.SEC_KEY,
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: mongoStore,
 }));
 
 app.use(passport.initialize());
