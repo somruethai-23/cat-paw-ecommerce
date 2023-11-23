@@ -49,12 +49,15 @@
                             <br>* EMS takes 2-4 days
                         <% } %>
                     </small></span></div>
+                    <form action="/order/payment" method="POST">
                     <div class="w-100 mx-3">
-                        <% if (shippingMethod === 'standard') { %>
-                            ฿ 32.00 <br>
-                        <% } else if (shippingMethod === 'EMS') { %>
-                            ฿ 50.00 <br>
-                        <% } %>
+                        <div class="mb-0">
+                            <p class="mb-0">Select shipping:</p>
+                            <select name="shippingMethod" class="form-select mb-3">
+                                <option value="standard" <%= shippingMethod === 'standard' ? 'selected' : '' %>>Standard Delivery ฿32</option>
+                                <option value="EMS" <%= shippingMethod === 'EMS' ? 'selected' : '' %>>EMS ฿50</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,15 +66,17 @@
                 <div class="d-flex justify-content-between">
                     <div class="fw-bold">Total</div>
                     <div class="text-primary fw-bold">
-                        <% if (shippingMethod === 'standard') { %>
-                            ฿ <%= (parseFloat(totalAmount) + 32).toLocaleString() %>
-                        <% } else if (shippingMethod === 'EMS') { %>
-                            ฿ <%= (parseFloat(totalAmount) + 50).toLocaleString() %>
-                        <% } %>
+                        <!-- Display total amount based on the selected shippingMethod -->
+                        <div class="total-amount">
+                            <% if (shippingMethod === 'standard') { %>
+                                ฿ <%= (parseFloat(totalAmount) + 32).toLocaleString() %>
+                            <% } else if (shippingMethod === 'EMS') { %>
+                                ฿ <%= (parseFloat(totalAmount) + 50).toLocaleString() %>
+                            <% } %>
+                        </div>
                     </div>
                 </div>
             </div>
-            <form action="/order/payment" method="POST">
                 <div class="my-4">
                     <button class="btn btn-primary text-uppercase w-100"><b>Pay</b></button>
                 </div>
@@ -79,5 +84,3 @@
         </div>
     </div>
 </div>
-
-<script src="/app.js"></script>
