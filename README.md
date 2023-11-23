@@ -1,10 +1,17 @@
 # cat-paw-ecommerce
-#### Video Demo:
-#### Description: 
+#### Video Demo: https://www.youtube.com/watch?v=xuxEhRzp3uE
+#### Description:
+my website: https://catpawsshop.onrender.com/
+Admin account for admin view:
+Username: admin
+Password: 1234
+
+my github of this project: https://github.com/somruethai-23/cat-paw-ecommerce
+
 ecommerce website selling cat product using Node.js express and using MongoDB as a database. I'm using about a month or maybe nearly two months for this project. I loose track of time.
 
 So I want to be fullstack developer for my first job, so I want to do frontend and backend with Node.js(In Thailand it was the most popular),
-So first of all I seperate folders trying to make it looks organizaed, I using routes so my app.js won't look crazy and it was more organized. 
+So first of all I seperate folders trying to make it looks organizaed, I using routes so my app.js won't look crazy and it was more organized.
 
 I make index.ejs as shopping page and navbar having about us and contact us, it was ecommerce website, so I have admin view and user view.
 
@@ -34,14 +41,14 @@ As Admin:
 
 - Online storing picture, I use firebase storage for free(all of my project must be free).
 
-- Mostly bootstrap I got from template and fixing it to the way I want myself, example of website I got templated from is 
+- Mostly bootstrap I got from template and fixing it to the way I want myself, example of website I got templated from is
  1.https://startbootstrap.com/theme/sb-admin-2
- 2. https://getbootstrap.com/docs/4.0/examples/ 
+ 2. https://getbootstrap.com/docs/4.0/examples/
  etc.
 
 - For deployed I was using lots before I ended up to use Render.com as many of the deploying didn't recognized node.js, or maybe I didn't research enough but when I do it most didn't shown up so I went to youtube and got Render as to deployed my website, I was stuck in render for 4-5 problems before it went live.
 
-- I use lots of Node packages, 
+- I use lots of Node packages,
 https://www.npmjs.com/
 there's lots of things I can use via Node packages and I use lots of them, some of it exists in my project but didn't use them because I tried many of them, some of them works some of them not working the way I want and I may didn't delete it out of my project.
 
